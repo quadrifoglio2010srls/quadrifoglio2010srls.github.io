@@ -231,7 +231,9 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
 @keyframes scrollx { to { transform: translateX(-50%); } }
 
 /* ---------- 8. SERVICES ---------- */
-.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.3rem; }
+.services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.3rem; }
+/* keep 4 per row as long as they fit; drop to 2 only when too narrow */
+@media (max-width: 720px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
 .card {
   position: relative; padding: 2rem 1.7rem; border-radius: var(--radius); background: var(--paper);
   border: 1px solid var(--line); box-shadow: var(--shadow-sm); overflow: hidden;
@@ -269,6 +271,14 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
 .card.feature:hover .icon { background: var(--accent); color: var(--green-900); }
 .card.feature .btn-ghost { margin-top: 1.4rem; background: rgba(255,255,255,.14); color: #fff; border-color: rgba(255,255,255,.3); }
 .card.feature .btn-ghost:hover { background: #fff; color: var(--green-700); }
+
+/* full-width green strip variant */
+.card.feature.full { grid-column: 1 / -1; }
+.card.feature.full .icon { margin-bottom: 1.4rem; }
+@media (min-width: 760px) {
+  .card.feature.full { padding: 2.4rem 2.6rem; }
+  .card.feature.full p { max-width: 70ch; }
+}
 
 /* ---------- 9. SECTORS (split panels) ---------- */
 .sectors { background: linear-gradient(180deg, transparent, rgba(234,243,236,.6)); }
