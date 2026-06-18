@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Certificazioni di Quadrifoglio 2010 S.r.l.s. — Sistema di Gestione della Qualità certificato ISO 9001:2015.">
+<title>Certificazioni — Quadrifoglio 2010 S.r.l.s.</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+
+<!-- Vivid four-leaf clover favicon -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg transform='translate(50 52)'%3E%3Cpath d='M0 0C-7-12-26-12-26-26-26-38-13-41 0-31 13-41 26-38 26-26 26-12 7-12 0 0Z' fill='%232fbf71'/%3E%3Cpath d='M0 0C-7-12-26-12-26-26-26-38-13-41 0-31 13-41 26-38 26-26 26-12 7-12 0 0Z' fill='%238bd450' transform='rotate(90)'/%3E%3Cpath d='M0 0C-7-12-26-12-26-26-26-38-13-41 0-31 13-41 26-38 26-26 26-12 7-12 0 0Z' fill='%2343c59e' transform='rotate(180)'/%3E%3Cpath d='M0 0C-7-12-26-12-26-26-26-38-13-41 0-31 13-41 26-38 26-26 26-12 7-12 0 0Z' fill='%236fe39a' transform='rotate(270)'/%3E%3C/g%3E%3C/svg%3E">
+</head>
+<body>
+
+<!-- ============ ATMOSPHERIC BACKGROUND ============ -->
+<div class="bg-stage" aria-hidden="true">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+  <span class="blob b3"></span>
+</div>
+<div class="bg-grid" aria-hidden="true"></div>
+<canvas id="particles" aria-hidden="true"></canvas>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header scrolled" id="header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html" aria-label="Quadrifoglio 2010 — home">
+      <img class="logo-svg" src="assets/logo-clover.png" alt="" width="44" height="44">
+      <span class="brand-text">
+        <strong>Quadrifoglio 2010</strong>
+        <span>Impianti · Lavori Edili</span>
+      </span>
+    </a>
+
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="index.html">← Torna al sito</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ SUBPAGE HERO ============ -->
+<section class="section subpage-hero">
+  <div class="wrap">
+    <div class="section-head">
+      <a class="back-link" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        Home
+      </a>
+      <span class="eyebrow" style="justify-content:center">Qualità &amp; conformità</span>
+      <h2>Le nostre <span class="text-grad">certificazioni</span></h2>
+      <p>Operiamo secondo standard certificati di qualità, sicurezza e conformità per ogni impianto e cantiere.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CERTIFICATIONS ============ -->
+<section class="section" style="padding-top:0">
+  <div class="wrap subpage-wrap">
+
+    <!-- ISO 9001 — la certificazione già presente -->
+    <div class="cert-card reveal in">
+      <div class="cert-ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 14.5 7.5 22l4.5-2.5L16.5 22 15 14.5"/><path d="m9.5 9 1.8 1.8L15 7"/></svg>
+      </div>
+      <div class="cert-body">
+        <strong>Certificazione ISO 9001:2015</strong>
+        <span>Sistema di Gestione della Qualità — Certificato n. QUAD4787Q2501 (EuCI), valido fino al 07/06/2029. Manutenzione di edifici civili, installazione e manutenzione di impianti termo-fluidi (idraulici, riscaldamento, condizionamento e antincendio).</span>
+      </div>
+      <a class="btn btn-primary cert-btn" href="https://drive.google.com/file/d/1SbGLcYLTrpvEILOt3RIGqUomWUOdhS-y/view?usp=sharing" target="_blank" rel="noopener">
+        <span>Vedi il certificato</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+      </a>
+    </div>
+
+    <!-- Bottone colorato e animato -> certificazioni del personale -->
+    <div class="cert-cta center reveal">
+      <a class="btn-pulse" href="personale.html" aria-label="Vai alle certificazioni del personale">
+        <svg class="bp-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM22 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg>
+        <span>Certificazioni del personale</span>
+        <svg class="bp-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <span>© <span id="year">2026</span> Quadrifoglio 2010 S.r.l.s. — Tutti i diritti riservati.</span>
+      <span>Operatore abilitato MEPA</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ VANILLA JS ============ -->
+<script>
+(function () {
+  "use strict";
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- Reveal on scroll ---- */
+  const reveals = document.querySelectorAll(".reveal");
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    reveals.forEach(el => el.classList.add("in"));
+  } else {
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); obs.unobserve(e.target); } });
+    }, { threshold: 0.14, rootMargin: "0px 0px -8% 0px" });
+    reveals.forEach(el => io.observe(el));
+  }
+
+  /* ---- Particle background ---- */
+  const canvas = document.getElementById("particles");
+  if (!reduceMotion && canvas) {
+    const ctx = canvas.getContext("2d");
+    let w, h, particles, raf;
+    const COLORS = ["#2fbf71", "#6fe39a", "#43c59e", "#8bd450", "#ffd166"];
+    const resize = () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      const count = Math.min(60, Math.floor(w / 26));
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * w, y: Math.random() * h,
+        r: Math.random() * 2.4 + 0.8,
+        vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25,
+        a: Math.random() * 0.4 + 0.15,
+        c: COLORS[(Math.random() * COLORS.length) | 0]
+      }));
+    };
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+      for (const p of particles) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
+        if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
+        ctx.globalAlpha = p.a; ctx.fillStyle = p.c;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.globalAlpha = 1; raf = requestAnimationFrame(draw);
+    };
+    resize(); draw();
+    let t; window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(resize, 200); });
+    document.addEventListener("visibilitychange", () => { if (document.hidden) cancelAnimationFrame(raf); else draw(); });
+  }
+
+  /* ---- Footer year ---- */
+  document.getElementById("year").textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
