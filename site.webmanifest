@@ -1,0 +1,24 @@
+{
+  "name": "Quadrifoglio 2010 S.r.l.s. — Impianti Tecnologici · Lavori Edili",
+  "short_name": "Quadrifoglio 2010",
+  "description": "Impianti tecnologici civili e industriali e lavori edili. Qualità certificata ISO 9001:2015. Civitavecchia (Roma).",
+  "lang": "it-IT",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f3f8f3",
+  "theme_color": "#2fbf71",
+  "icons": [
+    {
+      "src": "assets/logo-clover.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/logo-full.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}

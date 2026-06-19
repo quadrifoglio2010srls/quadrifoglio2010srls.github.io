@@ -1,0 +1,8 @@
+# robots.txt — Quadrifoglio 2010 S.r.l.s.
+# https://quadrifoglio2010srls.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://quadrifoglio2010srls.com/sitemap.xml
