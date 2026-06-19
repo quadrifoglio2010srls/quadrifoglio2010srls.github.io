@@ -7,14 +7,14 @@
      Cookie Policy, opened by tapping the footer link.
    • Stores the choice in localStorage (`qf_consent`) — a strictly
      technical item that needs no consent itself — and exposes it on
-     window.qfConsent so any future analytics can be gated by it.
-   • No tracking, no profiling, no third-party cookies are set.
+     window.qfConsent so analytics can be gated by it.
+   • Third-party analytics are only enabled after consent.
    ================================================================= */
 (function () {
   "use strict";
 
   var STORAGE_KEY = "qf_consent";
-  var CONSENT_VERSION = 1;
+  var CONSENT_VERSION = 2;
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- consent state ---------- */
@@ -30,6 +30,13 @@
     var data = { v: CONSENT_VERSION, necessary: true, analytics: !!analytics, ts: new Date().toISOString() };
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) {}
     window.qfConsent = data;
+    try {
+      window.dispatchEvent(new CustomEvent("qfconsentchange", { detail: data }));
+    } catch (e) {
+      var event = document.createEvent("CustomEvent");
+      event.initCustomEvent("qfconsentchange", false, false, data);
+      window.dispatchEvent(event);
+    }
     return data;
   }
   window.qfConsent = readConsent();
@@ -87,31 +94,43 @@
     '<p><strong>c) Font e risorse grafiche.</strong> I caratteri tipografici sono ospitati ' +
     '<strong>localmente</strong> su questo sito: non vengono effettuate chiamate ai server di Google e ' +
     'nessun indirizzo IP è trasmesso a terzi per il loro caricamento.</p>' +
-    '<p><strong>d) Link esterni.</strong> Alcuni pulsanti rimandano a documenti su Google Drive ' +
+    '<p><strong>d) Statistiche di utilizzo (Google Analytics).</strong> Previo tuo consenso, il sito ' +
+    'utilizza Google Analytics per elaborare statistiche aggregate sull’utilizzo delle pagine e ' +
+    'migliorare contenuti, navigazione e prestazioni del sito. Il servizio può registrare eventi di ' +
+    'interazione quali visualizzazioni di pagina, scorrimenti, clic verso siti esterni, ricerche interne, ' +
+    'interazioni con contenuti video, download di file e interazioni con il modulo di contatto. Google ' +
+    'Analytics viene caricato solo dopo la prestazione del consenso e può essere disattivato in qualsiasi ' +
+    'momento tramite le preferenze cookie.</p>' +
+    '<p><strong>e) Link esterni.</strong> Alcuni pulsanti rimandano a documenti su Google Drive ' +
     '(Google Ireland Ltd. / Google LLC). Aprendoli vieni reindirizzato a un servizio di terze parti ' +
     'soggetto alla propria informativa; il trattamento avviene solo se scegli volontariamente di ' +
     'aprire tali link.</p>' +
 
     '<h3>3. Cookie e tecnologie simili</h3>' +
-    '<p>Questo sito <strong>non utilizza cookie di profilazione o di marketing</strong> e ' +
-    '<strong>non impiega strumenti di analisi statistica di terze parti</strong> (es. Google ' +
-    'Analytics). L’unico elemento memorizzato sul tuo dispositivo è una preferenza tecnica salvata ' +
-    'nella memoria locale del browser (<em>localStorage</em>), che conserva la tua scelta relativa a ' +
-    'questa informativa per non riproporre il banner ad ogni visita.</p>' +
+    '<p>Questo sito <strong>non utilizza cookie di profilazione o di marketing</strong>. ' +
+    'Gli strumenti statistici, inclusi quelli forniti da <strong>Google Analytics</strong>, vengono ' +
+    'caricati esclusivamente dopo il tuo consenso. La preferenza espressa viene salvata nella memoria ' +
+    'locale del browser (<em>localStorage</em>) per conservare la scelta e non riproporre il banner ad ' +
+    'ogni visita.</p>' +
     '<table class="qc-table"><thead><tr><th>Nome</th><th>Tipo</th><th>Finalità</th><th>Durata</th></tr></thead>' +
     '<tbody><tr>' +
     '<td>qf_consent</td><td>Tecnico (localStorage)</td>' +
-    '<td>Memorizza la scelta espressa su questa informativa</td>' +
+    '<td>Memorizza le preferenze espresse in merito ai cookie tecnici e agli strumenti statistici</td>' +
     '<td>Persistente, fino a revoca o cancellazione manuale</td>' +
+    '</tr><tr>' +
+    '<td>_ga, _ga_*</td><td>Statistico (Google Analytics)</td>' +
+    '<td>Consente l’elaborazione di statistiche aggregate su visualizzazioni di pagina, scorrimenti, clic verso siti esterni, ricerche interne, interazioni video, download di file e interazioni con il modulo di contatto</td>' +
+    '<td>Fino a 2 anni, secondo le impostazioni del servizio Google Analytics</td>' +
     '</tr></tbody></table>' +
     '<p>I cookie tecnici e di preferenza non richiedono consenso ai sensi dell’art. 122 del Codice ' +
     'Privacy e delle Linee guida del Garante.</p>' +
 
     '<h3>4. Trasferimento dati extra-UE</h3>' +
     '<p>L’hosting (GitHub, Inc.) ed eventuali servizi collegati (Google Drive, se utilizzato) possono ' +
-    'comportare il trasferimento di dati verso gli Stati Uniti. Tali trasferimenti avvengono sulla base ' +
-    'delle garanzie previste dal GDPR (Clausole Contrattuali Standard e/o adesione al EU-U.S. Data ' +
-    'Privacy Framework).</p>' +
+    'comportare il trasferimento di dati verso gli Stati Uniti. L’eventuale attivazione di Google ' +
+    'Analytics, subordinata al consenso, può comportare ulteriori trasferimenti verso Paesi extra-UE. ' +
+    'Tali trasferimenti avvengono sulla base delle garanzie previste dal GDPR, incluse Clausole ' +
+    'Contrattuali Standard e/o adesione al EU-U.S. Data Privacy Framework, ove applicabile.</p>' +
 
     '<h3>5. Conservazione</h3>' +
     '<ul>' +
@@ -120,6 +139,8 @@
     '<li>Email ricevute tramite richieste di contatto: per il tempo necessario a gestire la richiesta e ' +
     'ad adempiere a eventuali obblighi di legge.</li>' +
     '<li>Preferenza <em>qf_consent</em>: fino a revoca o cancellazione.</li>' +
+    '<li>Dati statistici Google Analytics: conservati secondo le impostazioni del servizio e trattati ' +
+    'solo in presenza del relativo consenso.</li>' +
     '</ul>' +
 
     '<h3>6. Diritti dell’interessato</h3>' +
@@ -179,16 +200,20 @@
           '<div class="qc-body">' +
             '<strong class="qc-title">Rispettiamo la tua privacy</strong>' +
             '<p class="qc-text" id="qcDesc">Questo sito usa <strong>solo cookie tecnici</strong> ' +
-              'necessari al funzionamento e <strong>non effettua profilazione</strong>. L’hosting ' +
-              '(GitHub Pages) registra l’indirizzo IP dei visitatori per finalità di sicurezza. ' +
-              '<a href="privacy.html" class="qc-link" data-open-policy>Leggi l’informativa</a>.</p>' +
+              'necessari al funzionamento e <strong>non effettua profilazione</strong>. La categoria ' +
+              'analitica è attivata solo se la consenti. L’hosting (GitHub Pages) registra l’indirizzo IP ' +
+              'dei visitatori per finalità di sicurezza. <a href="privacy.html" class="qc-link" data-open-policy>Leggi l’informativa</a>.</p>' +
             '<div class="qc-prefs" id="qcPrefs" hidden>' +
               '<label class="qc-pref">' +
                 '<span class="qc-pref-txt"><b>Necessari</b><small>Sempre attivi: funzionamento e ' +
                   'sicurezza del sito.</small></span>' +
                 '<span class="qc-switch is-locked"><input type="checkbox" checked disabled aria-label="Cookie necessari (sempre attivi)"><i></i></span>' +
               '</label>' +
-              '<p class="qc-pref-note">Questo sito non utilizza cookie statistici, di profilazione o di marketing.</p>' +
+              '<label class="qc-pref">' +
+                '<span class="qc-pref-txt"><b>Statistiche</b><small>Consenti a Google Analytics di elaborare statistiche aggregate su navigazione, interazioni, download e modulo di contatto.</small></span>' +
+                '<span class="qc-switch"><input type="checkbox" id="qcAnalytics" aria-label="Consenti cookie analitici di Google Analytics"><i></i></span>' +
+              '</label>' +
+              '<p class="qc-pref-note">I cookie statistici restano disattivati finché non li consenti.</p>' +
             '</div>' +
           '</div>' +
           '<div class="qc-actions">' +
@@ -206,6 +231,7 @@
     var btnCustomize = banner.querySelector("#qcCustomize");
     var btnAccept = banner.querySelector("#qcAccept");
     var btnSave = banner.querySelector("#qcSave");
+    var analyticsInput = banner.querySelector("#qcAnalytics");
 
     btnCustomize.addEventListener("click", function () {
       var open = prefs.hasAttribute("hidden");
@@ -216,7 +242,7 @@
     });
     banner.querySelector("#qcAccept").addEventListener("click", function () { saveConsent(true); hideBanner(true); });
     banner.querySelector("#qcReject").addEventListener("click", function () { saveConsent(false); hideBanner(true); });
-    btnSave.addEventListener("click", function () { saveConsent(false); hideBanner(true); });
+    btnSave.addEventListener("click", function () { saveConsent(analyticsInput.checked); hideBanner(true); });
     banner.querySelector("[data-open-policy]").addEventListener("click", function (e) { e.preventDefault(); openPolicy(); });
 
     return banner;
@@ -226,6 +252,9 @@
     var banner = document.getElementById("qcBanner") || buildBanner();
     // reset to default (collapsed) view every time it is reopened
     var prefs = banner.querySelector("#qcPrefs");
+    var storedConsent = readConsent();
+    var analyticsInput = banner.querySelector("#qcAnalytics");
+    if (analyticsInput) analyticsInput.checked = !!(storedConsent && storedConsent.analytics);
     prefs.setAttribute("hidden", "");
     banner.querySelector("#qcCustomize").setAttribute("aria-expanded", "false");
     banner.querySelector("#qcSave").hidden = true;
